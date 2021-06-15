@@ -1,3 +1,5 @@
+<%@page import="java.time.ZoneId"%>
+<%@page import="java.util.TimeZone"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.text.DateFormatSymbols"%>
 <%@page import="java.util.Calendar"%>
@@ -17,15 +19,25 @@
 	}
 	 
 	DateFormatSymbols dfs = DateFormatSymbols.getInstance(locale);
-	Calendar cal = getInstance();   
-	if(yearStr!=null && yearStr.matches("\\d{4}")){  
-		cal.set(YEAR, Integer.parseInt(yearStr));
+	
+	Calendar cal = getInstance();
+	
+	String timezoneId = request.getParameter("timezone");
+	if(timezoneId!=null){
+		cal.getTimeZone().setID(timezoneId); 
 	}
+	
+	
+	if(yearStr!=null && yearStr.matches("\\d{4}")){   
+		cal.set(YEAR, Integer.parseInt(yearStr));
+	} 
 	if(monthStr!=null && monthStr.matches("\\d{1,2}")){
 		cal.set(MONTH,Integer.parseInt(monthStr));
 	}
+ 
+
 	
-	int year = cal.get(YEAR);
+	int year = cal.get(YEAR); 
 	int month = cal.get(MONTH);
 	
 	cal.set(DAY_OF_MONTH, 1);
@@ -46,6 +58,7 @@
 	int tyear = today.get(YEAR);
 	int tmonth = today.get(MONTH); 
 	int tdate = today.get(DAY_OF_MONTH);
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -105,14 +118,14 @@ thead{
 	color : white;
 	background: green; 
 }
-</style> 
+</style>  
 </head>  
 <body>
 <%-- <%=Calendar.SUNDAY %>
 <%=Calendar.MONDAY %> --%> 
 <%-- <%=String.format("%tc", cal) %> --%> 
 <div>
-<h4>현재 서버의 시각 : <%=String.format(locale, "%tc", cal) %></h4><br>
+<h4> <%=String.format(locale, "%tc", cal) %></h4><br>
 <h4>  
 <a href="#" class="moveA" data-year="<%=beforeYear%>" data-month="<%=beforeMonth%>">이전달</a> 
 <%=String.format(locale,"%1$tY. %1$tB", cal) %>  <!-- 1$를 쓰면 포맷에 넣을 값이 하나여도 됨 -->
@@ -134,7 +147,7 @@ thead{
 		%>
 	</select>
 	<select name="language">
-		<%
+		<%   
 			Locale[] locales = Locale.getAvailableLocales(); 
 			for(Locale tmpLoc : locales){
 				String tag = tmpLoc.toLanguageTag(); //'hr-HR'
@@ -147,6 +160,18 @@ thead{
 			}
 		%>
 	</select> 
+	<select name="timezone">
+		<%
+		 	
+			String[] timezones = TimeZone.getAvailableIDs();
+			for(String tmpTime : timezones){ 
+				String selected = tmpTime.equals(cal.getTimeZone().toZoneId().toString())? "selected" : ""; 
+				out.println(  
+						String.format(optionPtrn, selected, tmpTime, tmpTime)
+						);
+			}
+		%>
+	</select>
 </form> <br>
 <table>  
 	<thead> 
