@@ -40,7 +40,7 @@
 	</thead>
 	<tbody>
 		<%
-			Enumeration<String> names = request.getHeaderNames();
+		Enumeration<String> names = request.getHeaderNames();
 		while(names.hasMoreElements()){
 			%>
 			<tr>

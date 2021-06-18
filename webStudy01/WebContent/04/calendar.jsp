@@ -1,3 +1,6 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.DateFormat"%>
 <%@page import="java.time.ZoneId"%>
 <%@page import="java.util.TimeZone"%>
 <%@page import="java.util.Locale"%>
@@ -16,25 +19,34 @@
 	String language = request.getParameter("language");
 	if(language!=null){
 		locale  = Locale.forLanguageTag(language); 
-	}
+	} 
 	 
 	DateFormatSymbols dfs = DateFormatSymbols.getInstance(locale);
 	
 	Calendar cal = getInstance();
+	 
+	/*서버현재시각 */ 
+ 	Calendar today = getInstance(); 
+	String timezoneId = today.getTimeZone().getID();
+	String paramzoneId = request.getParameter("timezone");
+	if(paramzoneId!=null){    
+		timezoneId = paramzoneId;
+	}  
+	TimeZone time=TimeZone.getTimeZone(timezoneId);  
+	today.setTimeZone(time);  
 	
-	String timezoneId = request.getParameter("timezone");
-	if(timezoneId!=null){
-		cal.getTimeZone().setID(timezoneId); 
-	}
-	
-	
+	int tyear = today.get(YEAR);
+	int tmonth = today.get(MONTH);  
+	int tdate = today.get(DAY_OF_MONTH);
+	  
+	 
 	if(yearStr!=null && yearStr.matches("\\d{4}")){   
 		cal.set(YEAR, Integer.parseInt(yearStr));
 	} 
 	if(monthStr!=null && monthStr.matches("\\d{1,2}")){
 		cal.set(MONTH,Integer.parseInt(monthStr));
 	}
- 
+  
 
 	
 	int year = cal.get(YEAR); 
@@ -54,10 +66,8 @@
 	
 	cal.add(MONTH, -1);
 	
-	Calendar today = getInstance();
-	int tyear = today.get(YEAR);
-	int tmonth = today.get(MONTH); 
-	int tdate = today.get(DAY_OF_MONTH);
+
+
 	
 %>
 <!DOCTYPE html>
@@ -114,18 +124,18 @@ thead{
 .saturday{
 	color : blue;
 }
-.current{
+.current{ 
 	color : white;
 	background: green; 
-}
+} 
 </style>  
-</head>  
+</head>   
 <body>
-<%-- <%=Calendar.SUNDAY %>
+<%-- <%=Calendar.SUNDAY %>  
 <%=Calendar.MONDAY %> --%> 
-<%-- <%=String.format("%tc", cal) %> --%> 
-<div>
-<h4> <%=String.format(locale, "%tc", cal) %></h4><br>
+<%-- <%=String.format("%tc", cal) %> --%>    
+<div>    
+<h4> <%=String.format(locale, "%tc", today) %></h4><br>
 <h4>  
 <a href="#" class="moveA" data-year="<%=beforeYear%>" data-month="<%=beforeMonth%>">이전달</a> 
 <%=String.format(locale,"%1$tY. %1$tB", cal) %>  <!-- 1$를 쓰면 포맷에 넣을 값이 하나여도 됨 -->
@@ -145,7 +155,7 @@ thead{
 						); 
 			}
 		%>
-	</select>
+	</select> 
 	<select name="language">
 		<%   
 			Locale[] locales = Locale.getAvailableLocales(); 
@@ -162,10 +172,10 @@ thead{
 	</select> 
 	<select name="timezone">
 		<%
-		 	
-			String[] timezones = TimeZone.getAvailableIDs();
-			for(String tmpTime : timezones){ 
-				String selected = tmpTime.equals(cal.getTimeZone().toZoneId().toString())? "selected" : ""; 
+		 	 
+			String[] timezones = TimeZone.getAvailableIDs(); 
+			for(String tmpTime : timezones){   
+				String selected = tmpTime.equals(timezoneId)? "selected" : ""; 
 				out.println(  
 						String.format(optionPtrn, selected, tmpTime, tmpTime)
 						);
