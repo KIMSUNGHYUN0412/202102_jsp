@@ -15,9 +15,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kr.or.ddit.enumtype.MimeType;
 
-@WebServlet("/05/factorial")
+@WebServlet("/05/factorial.do")
 public class FactorialServlet extends HttpServlet{
-
+ 
    @Override
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       

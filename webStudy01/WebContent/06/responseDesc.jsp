@@ -20,7 +20,7 @@
 		return;
 	%> --%>
 	 ** 상태 코드 : 요청 처리의 결과를 표현하는 숫자 체계
-		 100~ : ing...
+		 100~ : ing...  (websocket1.1부터적용)
 		 200~ : OK
 		 300~ : 처리 완료를 이해 클라이언트로부터 추가적인 액션이 필요한 경우
 		 	304(Not Modified), 302/307(Moved< Location)
@@ -33,11 +33,12 @@
 		 	500(Internal Server Error)
 	2. Response Header : Meta data, setHeader(name, value);
 		* Content-Type : body 영역의 데이터 mime
-		* Cache-Control(1.1), Pragma(1.0), Expires(만료시간 제어) : 캐시를 제어할 때 사용됨
+		* Cache-Control(1.1), Pragma(1.0), Expires(만료시간 제어/long타입의 ms) : 캐시를 제어할 때 사용됨
 			<a href="cacheControl.jsp">캐시 제어 예제</a>
 		* Refresh : auto request
 			<a href="autoRequest.jsp">Refresh를 통한 자동 요청</a>
-		* Location 
+		* Location : 페이지 이동
+			<a href="flowControl.jsp">페이지 이동 예제</a>
 		
 	3. Response Body 
 </pre>

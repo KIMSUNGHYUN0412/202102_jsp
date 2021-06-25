@@ -1,92 +1,29 @@
-<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>05/factorial.jsp</title>
-<script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/jquery-3.6.0.min.js"></script>
-</head>
-<body>
-<pre>
-	반갑습니다
-	저는 못합니다....
-	항상 건강하세요
-	똘또올 하네!!!
-left 입력을 통해 숫자를 입력받고,
-값이 변경되는 순간 서버로 비동기 요청 발생시킴.
-서버에서 factorial 연산을 수행한 후,
-선택한 mime의 형태로 응답을 전송
-plain : "2! = 2"
-json : 
-{
-	left : 2,
-	operator : !,
-	expression : "2! = 2"
-}
-xml :
-&lt;result>
-	&lt;left>2&lt;/left>
-	&lt;expression>2! = 2&lt;/expression>
-&lt;/result>
-</pre>
-<form action="/05/factorial">
-<input type="radio" name="mime" value="json">JSON
-<input type="radio" name="mime" value="plain">PLAIN
-<input type="radio" name="mime" value="xml">XML
-<input type="number" name="left" min="1" max="10"> !
-</form> 
-<div id="resultArea">
-<script type="text/javascript">
-
-	$('input[name=left]').on('change',function(){
-		num = $(this).val().trim()
-		if(num=="")return false; 
-		$.ajax({
-			url : "",
-			data : "",
-			method : "",
-			dataType : "",
-			success : function(resp) {
-
-			},
-			error : function(errorResp) {
-
-			}
-		});
-	});
-
-	
-</script>
-</div>
-</body>
-</html> --%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<script type="text/javascript" src="<%= request.getContextPath() %>/resources/js/jquery-3.6.0.min.js"></script>
+<title>05/factorial.jsp</title>
+<%-- <script type="text/javascript" src="<%= request.getContextPath() %>/resources/js/jquery-3.6.0.min.js"></script> --%>
+<jsp:include page="/includee/preScript.jsp"/>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap'); */
 body{
-   font-family: 'Noto Sans KR', sans-serif;
-   padding: 50px;
-}
+/*    font-family: 'Noto Sans KR', sans-serif; */
+/*    padding: 50px; */
+} 
 pre{
-   font-family: 'Noto Sans KR', sans-serif;
+/*    font-family: 'Noto Sans KR', sans-serif; */
    border: 2px dashed black;
    padding: 20px;
 }
-div{
+#resultArea{ 
    margin-top: 20px;
    border: 1px solid hotpink;
-   padding: 20px;
+   padding: 20px;  
 }
 </style>
-<title>05/factorial.jsp</title>
 </head>
 <body>
 <pre>
@@ -104,18 +41,58 @@ xml:
 &lt;result>
    &lt;left>2&lt;/left>
    &lt;expression>2! = 2&lt;/expression>
-&lt;/result>
+&lt;/result> 
 </pre>
-   <form action="/05/factorial">
-      <input type="radio" name="mime" value="json" checked>JSON
-      <input type="radio" name="mime" value="plain">PLAIN
-      <input type="radio" name="mime" value="xml">XML
+   <form action="<%=request.getContextPath() %>/05/factorial">
+      <input type="radio" name="mime" value="json" data-type="json" data-success="parseJson">JSON
+      <input type="radio" name="mime" value="plain" data-type="text" data-success="parsePlain" checked>PLAIN
+      <input type="radio" name="mime" value="xml" data-type="xml" data-success="parseXml">XML
       <input type="number" name="left" min="1" max="10">!
    </form>
    <div id="resultArea">
       
-   </div>
-<script>
+   </div> 
+   
+<script type="text/javascript">
+	let resultArea = $("#resultArea");
+	function parsePlain(resp){ 
+		console.log(resp); 
+		resultArea.html(resp);
+	} 
+	function parseJson(resp){
+		console.log(resp); 
+		resultArea.html(resp.expression);
+	}
+	function parseXml(resp){
+		console.log(resp); 
+		resultArea.html($(resp).find("expression").text()); 
+	}
+ 	$("form:first").on("submit",function(event){
+ 		event.preventDefault();
+ 		let url = this.action;
+ 		let data = $(this).serialize();
+ 		let method = this.method;
+ 		console.log(data);
+ 		let radio = $(this).find("[name='mime']:checked");
+ 		let dataType = $(radio).data("type");
+ 		let success = eval($(radio).data("success"));
+ 		console.log(success);
+		$.ajax({
+			url : url,
+			data : data,
+			method : method,
+			dataType : dataType,
+			success : success,  
+			error : function(errorResp) {
+
+			}
+		});
+ 		return false;
+ 	}).find(":input").on("change",function(){
+ 		$(this.form).submit();
+ 	});
+</script>
+<%-- <script>
    $('input[type=number]').on('change', function(){
       let left = $(this).val();
       let mime = $('input[name=mime]:checked').val();
@@ -138,6 +115,6 @@ xml:
          }
       });
    });
-</script>
+</script> --%>
 </body>
 </html>

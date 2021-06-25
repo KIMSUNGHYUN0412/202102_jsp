@@ -70,22 +70,19 @@
 
 	
 %>
-<!DOCTYPE html>
-<html>
+<!-- <!DOCTYPE html>
+<html> 
 <head>
 <meta charset="UTF-8">
-<title>04/calendar.jsp</title>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<title>04/calendar.jsp</title> -->
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
 <style type="text/css">
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
-body{ 
-	font-family: 'Noto Sans KR', sans-serif;
-}
-div{
 
-	margin: 50px;
-}
-h4{
+/* div{
+
+	margin: 50px;  
+} */ 
+/* h4{ 
 	display : inline-block; 
 	font-size: 14px;
 	margin : 5px 0;  
@@ -99,25 +96,29 @@ a{
 }
 a:hover{ 
 	color : purple;
-}
+} */
 td{
 	text-align: center;
 	font-size : 15px;
 	width: 100px;  
 	height: 80px;   
-}  
-input[type=number]{    
+}   
+thead{
+	text-align: center;
+}
+/* input[type=number]{    
 	width: 70px;  
 	height: 10px;
 	margin-left: 10px; 
 	font-size: 12px;
-}
+} 
 select{
 	font-size: 12px;
 }
 thead{ 
 	font-size: 12px;
 }
+*/
 .sunday{
 	color : red;
 }
@@ -127,10 +128,10 @@ thead{
 .current{ 
 	color : white;
 	background: green; 
-} 
+}  
 </style>  
-</head>   
-<body>
+<!-- </head>    -->
+<!-- <body> -->
 <%-- <%=Calendar.SUNDAY %>  
 <%=Calendar.MONDAY %> --%> 
 <%-- <%=String.format("%tc", cal) %> --%>    
@@ -141,7 +142,8 @@ thead{
 <%=String.format(locale,"%1$tY. %1$tB", cal) %>  <!-- 1$를 쓰면 포맷에 넣을 값이 하나여도 됨 -->
 <a href="#" class="moveA" data-year="<%=nextYear%>" data-month="<%=nextMonth%>">다음달</a>
 </h4>    
-<form id="calendarForm">
+<form id="calendarForm">  
+	<input type="hidden" name="service" value="CALENDAR">
 	<input type="number" name="" placeholder=" <%=year%>" value="<%=year%>">
 	<select name="month">
 	<option value>월 선택</option> 
@@ -183,8 +185,8 @@ thead{
 		%>
 	</select>
 </form> <br>
-<table>  
-	<thead> 
+<table class="table table-bordered">  
+	<thead>   
 		<tr>
 			<%
 				String[] weekDays = dfs.getWeekdays();
@@ -228,9 +230,9 @@ thead{
 //		calForm.submit(); //submit이벤트 발생
 	}).on("submit", function(){ 
 		console.log("=====================");
-		return true;   
+		return true;    
 	});  
-	
+	 
 	$(".moveA").on("click", function(event){
 		event.preventDefault(); 
 		let year = $(this).data("year"); 
@@ -239,7 +241,7 @@ thead{
 		$(calForm.get(0).month).val(month); // calForm.get(0) = calForm[0]
 		calForm.submit();
 		return false;
-	});
+	}); 
 </script>
-</body>
-</html>
+<!-- </body> -->
+<!-- </html> -->
