@@ -11,8 +11,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class MenuVO implements Serializable{
 	private String code;  
 	private String link;
+	private String href;
 	private String text;
+	 
 	
+	public String getHref() {
+		return href;
+	}
+	public void setHref(String href) {
+		this.href = href;
+	}
 	public String getCode() {
 		return code;
 	}

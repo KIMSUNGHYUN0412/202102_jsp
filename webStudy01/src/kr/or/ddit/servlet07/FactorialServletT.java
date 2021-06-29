@@ -49,7 +49,8 @@ public class FactorialServletT extends HttpServlet{
 				PrintWriter out = resp.getWriter();
 			){
 				Object contents = req.getAttribute("contents");
-				out.print(contents);
+				out.print(contents); 
+				System.out.println(contents);
 			}
 		}else { 
 			resp.sendError(status);
