@@ -13,7 +13,7 @@ public class DataBasePropertyServiceImplTest {
 
 	@Test
 	public void testRetrieveDataBaseProperties() {
-		List<DataBasePropertyVO> list = new DataBasePropertyServiceImpl().retrieveDataBaseProperties();
+		List<DataBasePropertyVO> list = new DataBasePropertyServiceImpl().retrieveDataBaseProperties(param);
 		assertNotNull(list); 
 	}
 

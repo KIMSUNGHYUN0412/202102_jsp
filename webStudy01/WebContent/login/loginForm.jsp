@@ -17,8 +17,14 @@
 <!-- 필수파라미터 검증. 비밀번호 영문자특수문자숫자 정규식. jquery validate plugin -> demos 이용하여 client side 검증구조 완성  -->
 </head>  
 <body>
+<% 
+	//flash attribute
+	String message = (String)session.getAttribute("message");
+	session.removeAttribute("message");
+%>
 <div class="error"> 
 <%-- 	<%=request.getAttribute("errors") %> --%>
+	<%=message %>
 	${errors }  <!--null은 자체적으로 ""로 바꿈  -->
 </div>
 <form name="loginForm" action="<%=request.getContextPath() %>/login/loginCheck.do" method="post">
@@ -29,8 +35,8 @@
 		<li> 
 			아이디 : <input type="text" name="mem_id" value="${failId }" required data-msg-required="필수 데이터">
 		</li> 
-		<li>
-			비밀번호 : <input type="text" pattern="^(?=.*[a-z]+)(?=.*[A-Z]+)(?=.*[0-9]+)(?=.*[!@#\\$%\\^\\&\\*]+).{4,8}$"
+		<li><!--pattern="^(?=.*[a-z]+)(?=.*[A-Z]+)(?=.*[0-9]+)(?=.*[!@#\\$%\\^\\&\\*]+).{4,8}$"  --> 
+			비밀번호 : <input type="text" 
 					 name="mem_pass" required data-msg-pattern="형식확인">
 			<input type="submit" value="로그인">  
 		</li> 

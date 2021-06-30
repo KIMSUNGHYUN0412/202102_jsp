@@ -11,9 +11,9 @@ public class DataBasePropertyServiceImpl implements DataBasePropertyService{
 	private DataBasePropertyDAO dao = new DataBasePropertyDAOImpl();
 	
 	@Override
-	public List<DataBasePropertyVO> retrieveDataBaseProperties() {
+	public List<DataBasePropertyVO> retrieveDataBaseProperties(DataBasePropertyVO param) {
 		//raw data
-		List<DataBasePropertyVO> propList = dao.selectDataBasePropertyList();
+		List<DataBasePropertyVO> propList = dao.selectDataBasePropertyList(param);
 		// logic -> information (데이터가공)
 		Calendar cal = Calendar.getInstance();
 		String pattern = "%s, %tc";

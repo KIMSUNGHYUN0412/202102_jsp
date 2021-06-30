@@ -29,7 +29,13 @@ public class DataBasePropertyController extends HttpServlet{
 	@Override 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String accept = req.getHeader("accept");
-		List<DataBasePropertyVO> propList = service.retrieveDataBaseProperties();
+		String search = req.getParameter("search");
+		DataBasePropertyVO param = new DataBasePropertyVO();
+		param.setProperty_name(search);
+		param.setProperty_value(search);
+		param.setDescription(search);
+		
+		List<DataBasePropertyVO> propList = service.retrieveDataBaseProperties(param);
 		
 		if(accept.contains("json")) {
 			resp.setContentType("application/json;charset=utf-8");

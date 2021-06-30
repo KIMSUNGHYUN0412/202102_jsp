@@ -10,5 +10,5 @@ import kr.or.ddit.vo.DataBasePropertyVO;
  *
  */
 public interface DataBasePropertyService {
-	public List<DataBasePropertyVO> retrieveDataBaseProperties();
+	public List<DataBasePropertyVO> retrieveDataBaseProperties(DataBasePropertyVO param);
 }

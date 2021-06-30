@@ -12,7 +12,7 @@ public class DataBasePropertyDAOImplTest {
 
 	@Test
 	public void testSelectDataBasePropertyList() {
-		List<DataBasePropertyVO> list = new DataBasePropertyDAOImpl().selectDataBasePropertyList();
+		List<DataBasePropertyVO> list = new DataBasePropertyDAOImpl().selectDataBasePropertyList(param);
 		assertNotNull(list); 
 	}
 
