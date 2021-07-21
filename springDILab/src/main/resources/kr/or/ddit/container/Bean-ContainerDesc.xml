@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+	default-init-method="init" default-destroy-method="destroy"
+	> 
+
+<!-- 	Spring DI container 사용 단계 -->
+<!-- 	1. core container 구성 모듈의 의존성 추가 -->
+<!-- 	2. bean configuration file 의 형태로 xml(설정 파일) 작성 -->
+<!-- 		1) 컨테이너 관리 객체(bean) 등록 -->
+<!-- 		2) 등록된 bean들간의 의존관계 형성(injection) -->
+<!-- 			- constructor inject : constructor-arg, c -->
+<!-- 			- setter inject : property, p -->
+<!-- 	3. 어플리케이션의 엔트리 포인트에서 컨테이너 객체(ApplicationContext) 생성 -->
+<!-- 	4. getBean으로 필요 객체 주입 받고 사용 -->
+
+<!-- 	컨테이너의 빈 관리 특성 -->
+<!-- 	container : 내부에서 관리하는 객체의 생명주기에 대한 관리자 -->
+<!-- 	1. bean들의 생명주기 관리시 해당 이벤트를 처리할 수 있는 콜백 메소드 지정 가능 -->
+<!-- 		init-method(injection 이 완료된 이후 호출되는 callback), destroy-method -->
+<!-- 	2. 특별한 설정(lazy-init)이 없는 한, 등록된 모든 빈의 객체를 컨테이너가 초기화될 때 생성함 -->
+<!-- 	3. 특별한 설정(scope)이 없는 한, 등록된 bean은 singleton(하나의 빈을 대상으로 한 scope)으로 관리됨 -->
+<!-- 		scope="prototype"은 주입시마다 새로운 객체가 생성되는 구조이면서, 객체 생성 시점을 주입시점으로 미루게 됨. -->
+<!-- 	4. 객체의 생성 순서를 직접 제어할 때, depends-on 설정 활용 -->
+	<bean id="sampleOracle" class="kr.or.ddit.ioc.sample.dao.SampleDAOImpl_Oracle"
+		scope="prototype" 
+	></bean>
+	<bean id="sampleMysql" class="kr.or.ddit.ioc.sample.dao.SampleDAOImpl_Mysql" 
+		depends-on="sampleOracle" 
+	/>
+	
+	<bean id="sampleService1" class="kr.or.ddit.ioc.sample.service.SampleServiceImpl"
+	>
+		<property name="daoasdf" ref="sampleMysql"></property> 
+	</bean>
+	 
+	<bean id="sampleService2" class="kr.or.ddit.ioc.sample.service.SampleServiceImpl">
+		<constructor-arg name="dao" ref="sampleOracle"></constructor-arg>
+	</bean>
+	
+	
+	<bean id="sampleService3" class="kr.or.ddit.ioc.sample.service.SampleServiceImpl"
+		p:daoasdf-ref="sampleMysql"
+	/>
+	
+	<bean id="sampleService4" class="kr.or.ddit.ioc.sample.service.SampleServiceImpl"
+		c:dao-ref="sampleOracle"
+	/>
+</beans>

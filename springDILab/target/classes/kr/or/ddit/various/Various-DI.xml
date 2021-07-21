@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+	> 
+
+	<bean id="vo1" class="kr.or.ddit.various.VariousDIVO" 
+		c:boolData="true"
+		c:ch="A"
+		c:dbl="23.4"
+		c:number="234"
+		c:text="TEXTDATA"  
+		c:file="classpath:log4j2.xml" 
+		lazy-init="true"
+		scope="prototype" 
+		init-method="init"
+		destroy-method="destroy" 
+	/>
+	
+	<bean id="vo2" class="kr.or.ddit.various.VariousDIVO"
+		p:boolData="false"
+		p:ch="B"
+		p:dbl="43.2"
+		p:number="432"
+		p:text="textdata"
+		p:file="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+		init-method="init" 
+		destroy-method="destroy"
+	/>
+</beans>
