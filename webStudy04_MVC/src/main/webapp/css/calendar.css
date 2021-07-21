@@ -1,0 +1,76 @@
+@CHARSET "UTF-8";
+
+form{
+   margin: 100px 200px;
+   width : 300px;
+   height : 330px; 
+   background: #424242;
+   color: white; 
+   padding : 15px;
+}
+h4{
+   display: inline-block;
+   float: left;
+   margin : 7px 0 0 15px;
+   font-weight: lighter;
+   font-size: 0.9em;
+   cursor: default;
+   color: #D8D8D8;
+}
+h4:hover{
+   color: white;
+}
+.before, .after{
+   display: inline-block;
+   float: right;
+   background: none;
+   border: none;
+   font-size: 20px;
+   color: #D8D8D8;
+   width : 45px;
+}  
+.before:hover, .after:hover{
+   color: white;
+}
+div{
+   display: none;
+}
+table{
+   clear: both;
+   cursor: default;
+}
+#table2, #table3{
+   margin-top: 40px;
+}
+.t1{
+   width:40px; 
+   height : 30px; 
+   text-align: center;
+   font-size: 13px; 
+} 
+.t2{
+   width:40px; 
+   height: 35px;
+   text-align: center;
+   font-size: 17px; 
+   border : 2px solid transparent;
+} 
+.t2:hover{ 
+    box-shadow : 0px 0px 5px white inset; 
+}
+.t3{
+   text-align: center;
+   width: 70px;
+   height: 70px;
+}
+.t3:hover{
+   box-shadow : 0px 0px 5px white inset; 
+}
+.t4{
+   text-align: center;
+   width: 55px;
+   height: 55px;
+}
+.t4:hover{
+   box-shadow : 0px 0px 5px white inset; 
+}

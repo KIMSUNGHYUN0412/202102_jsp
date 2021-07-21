@@ -1,0 +1,20 @@
+header{
+	height : 100px;
+	width : 100%;
+	background: yellow; 
+}
+#leftMenu{
+	width : 19%;
+	float : left; 
+	background: aqua;
+}
+#contents{
+	width : 80%;
+	float: right;
+}
+footer{
+	float: left;
+	height : 100px;
+	width : 100%; 
+	background: teal;
+}

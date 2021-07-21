@@ -1,0 +1,28 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap'); 
+body{ 
+	padding-top : 30px; 
+	padding-left: 30px;
+	font-family: 'Noto Sans KR', sans-serif; 
+}
+table{  
+	border-collapse: collapse;
+	text-align: center;
+	font-family: 'Noto Sans KR', sans-serif; 
+}
+th{
+	background : lightblue;
+} 
+th,td{
+	border : 2px solid lightblue;
+	padding : 10px; 
+}
+tbody tr:hover{
+	background: #CDE7ED;
+} 
+#searchForm input{
+	border : none;
+}
+#prodInsert{
+	float : right;
+}

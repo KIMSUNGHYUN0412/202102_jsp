@@ -11,7 +11,7 @@ import kr.or.ddit.vo.DataBasePropertyVO;
 public class DataBasePropertyDAOImplTest {
 
 	@Test
-	public void testSelectDataBasePropertyList() {
+	public void testSelectDataBasePropertyList(DataBasePropertyVO param) {
 		List<DataBasePropertyVO> list = new DataBasePropertyDAOImpl().selectDataBasePropertyList(param);
 		assertNotNull(list); 
 	}

@@ -10,9 +10,9 @@ import kr.or.ddit.prop.dao.DataBasePropertyDAOImpl;
 import kr.or.ddit.vo.DataBasePropertyVO;
 
 public class DataBasePropertyServiceImplTest {
-
+ 
 	@Test
-	public void testRetrieveDataBaseProperties() {
+	public void testRetrieveDataBaseProperties(DataBasePropertyVO param) {
 		List<DataBasePropertyVO> list = new DataBasePropertyServiceImpl().retrieveDataBaseProperties(param);
 		assertNotNull(list); 
 	}
